@@ -1,10 +1,11 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 
 import axios from 'axios'
 
 import Header from './components/Header'
 import Formulario from './components/Formulario';
 import Clima from './components/Clima';
+import Error from './components/Error';
 
 function App() {
 
@@ -29,6 +30,10 @@ function App() {
       .catch(err => setError(true))
   }
 
+  useEffect(()=>{
+      setError(false)
+  }, [resultado])
+
   return (
     <Fragment>
       <Header
@@ -45,9 +50,9 @@ function App() {
                       />
                   </div>
                   <div className="col m6 s12">
-                      <Clima
-                        resultado = {resultado}
-                      />
+                      {
+                        error ? <Error mensaje="No se encontraron datos"/> : <Clima resultado = {resultado}/>
+                      }
                   </div>
               </div>
           </div>
