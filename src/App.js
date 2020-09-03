@@ -2,6 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react';
 
 import Header from './components/Header'
 import Formulario from './components/Formulario';
+import Clima from './components/Clima';
 
 function App() {
   const [busqueda, setBusqueda] = useState({
@@ -17,11 +18,12 @@ function App() {
   useEffect(()=>{
     const consultarApi = async () =>{
       const appId = '99e66bdd9cd081550cad110adbb6d8a2'
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`
+      const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}&units=metric`
 
       const respuesta = await fetch(url)
       const resultado = await respuesta.json()
       setResultado(resultado)
+      setConsultar(false)
     }
 
     if (consultar) consultarApi();
@@ -45,7 +47,9 @@ function App() {
                       />
                   </div>
                   <div className="col m6 s12">
-                      2
+                      <Clima
+                        resultado = {resultado}
+                      />
                   </div>
               </div>
           </div>
