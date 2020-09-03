@@ -23,7 +23,7 @@ function App() {
 
   const consultarApi = async () =>{
       const appId = '99e66bdd9cd081550cad110adbb6d8a2'
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}&units=metric`
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}&units=metric`
 
       await axios.get(url)
       .then(res => setResultado(res.data))

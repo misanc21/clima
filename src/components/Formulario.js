@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 
 const Formulario = ({busqueda, setBusqueda, consultarApi}) => {
 
@@ -65,4 +66,9 @@ const Formulario = ({busqueda, setBusqueda, consultarApi}) => {
     )
 }
 
+Formulario.propTypes = {
+    busqueda: PropTypes.object.isRequired,
+    setBusqueda: PropTypes.func.isRequired,
+    consultarApi: PropTypes.func.isRequired,
+}
 export default Formulario;
