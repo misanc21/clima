@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
+const Formulario = ({busqueda, setBusqueda, consultarApi}) => {
 
     const [error, setError] = useState (false)
 
@@ -20,8 +20,8 @@ const Formulario = ({busqueda, setBusqueda, setConsultar}) => {
             setError(true)
             return
         }
+        consultarApi()
         setError(false)
-        setConsultar(true)
     }
 
     return (

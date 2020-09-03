@@ -1,35 +1,33 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState} from 'react';
+
+import axios from 'axios'
 
 import Header from './components/Header'
 import Formulario from './components/Formulario';
 import Clima from './components/Clima';
 
 function App() {
+
   const [busqueda, setBusqueda] = useState({
     ciudad:'',
     pais:''
   })
-  const [consultar, setConsultar] = useState(false)
 
   const [resultado, setResultado] = useState({})
 
   const {ciudad, pais} = busqueda
 
-  useEffect(()=>{
-    const consultarApi = async () =>{
+  const [error, setError] = useState(false)
+
+
+  const consultarApi = async () =>{
       const appId = '99e66bdd9cd081550cad110adbb6d8a2'
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}&units=metric`
 
-      const respuesta = await fetch(url)
-      const resultado = await respuesta.json()
-      setResultado(resultado)
-      setConsultar(false)
-    }
-
-    if (consultar) consultarApi();
-
-  },[consultar])
-
+      await axios.get(url)
+      .then(res => setResultado(res.data))
+      .catch(err => setError(true))
+  }
 
   return (
     <Fragment>
@@ -43,7 +41,7 @@ function App() {
                       <Formulario
                         busqueda = {busqueda}
                         setBusqueda = {setBusqueda}
-                        setConsultar = {setConsultar}
+                        consultarApi = {consultarApi}
                       />
                   </div>
                   <div className="col m6 s12">
